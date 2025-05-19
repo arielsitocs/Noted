@@ -43,7 +43,7 @@ Sigue estos pasos para ejecutar el proyecto en tu máquina local:
 
 ### 1️⃣ Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/noted.git
+git clone https://github.com/arielsitocs/noted.git
 ```
 
 ```bash
@@ -60,7 +60,7 @@ npm run dev
 ```
 
 ```bash
-npm run server ```
+npm run server
 ```
 
 El proyecto estará disponible en http://localhost:5173
@@ -77,6 +77,10 @@ El proyecto estará disponible en http://localhost:5173
 
 Este proyecto está bajo la licencia MIT.
 
+---
+
 ## ⚠️ Errores
 
-Durante el uso de este proyecto, estas sujeto a encontrar posibles errores en la página, ya que es un proyecto en desarrollo. Gracias por tu comprensión!
+Durante el uso de este proyecto, estas sujeto a encontrar posibles errores en la página y/o sus funciones, ya que es un proyecto en desarrollo. Gracias por tu comprensión!
+
+---

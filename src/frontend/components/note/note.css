@@ -1,0 +1,82 @@
+.note {
+    padding: 12px;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    .top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .created-at {
+            p {
+                font-family: 'Roboto';
+                font-style: italic;
+                font-size: 15px;
+            }
+        }
+
+        .buttons {
+            display: flex;
+            gap: 5px;
+            margin-left: 10px;
+
+            button {
+                width: 42px;
+                height: 32px;
+                border: none;
+                transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+
+
+                img {
+                    width: 26px;
+                    height: 26px;
+                }
+            }
+
+            button:hover {
+                opacity: 0.8;
+                transform: scale(1.15);
+                cursor: pointer;
+            }
+
+            .complete {
+                background-color: var(--light-green);
+
+            }
+
+            .edit {
+                background-color: var(--light-orange);
+            }
+        }
+    }
+
+    .middle-row {
+        background-color: var(--light-gray);
+        margin-bottom: 15px;
+        border-radius: 6px;
+
+        h1 {
+            font-family: 'Roboto';
+            font-style: bold;
+            font-size: 17px;
+            padding: 10px 5px 10px 5px;
+        }
+    }
+
+    .bottom-row {
+        display: flex;
+        align-items: center;
+        background-color: var(--light-gray);
+        border-radius: 6px;
+        min-height: 50px;
+
+
+        p {
+            font-family: 'Roboto';
+            font-size: 13px;
+            padding: 10px 5px 10px 5px;
+        }
+    }
+}
