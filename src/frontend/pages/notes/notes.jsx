@@ -2,6 +2,8 @@ import './notes.css';
 
 import Note from '../../components/note/note.jsx';
 
+import AddIcon from '../../assets/add-icon.svg';
+
 function Notes() {
 
   const notes = [
@@ -33,7 +35,11 @@ function Notes() {
   ]
 
   return (
-    <>
+    <div className="notes-content">
+      <div className="notes-tools ">
+        <input type="text" placeholder='Buscar por tìtulo...' />
+        <button><img src={AddIcon} alt="add-icon" /></button>
+      </div>
       <div className="notes">
         {
           notes.map(note => {
@@ -43,7 +49,7 @@ function Notes() {
           })
         }
       </div>
-    </>
+    </div>
   )
 }
 

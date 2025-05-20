@@ -1,19 +1,99 @@
+.notes-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.notes-tools {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    input {
+        width: 25%;
+        border: none;
+        border-radius: 100px;
+        background-color: var(--light-gray);
+        padding: 15px 15px 15px 40px;
+        background-image: url('src/frontend/assets/search-icon.svg');
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position: 5px;
+        font-family: 'Roboto';
+        font-weight: 600;
+    }
+
+    button {
+        width: 45px;
+        border: none;
+        border-radius: 5px;
+        margin-left: 10px;
+        background-color: var(--main-color);
+        transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    button:hover {
+        transform: scale(1.15);
+        opacity: 0.8;
+        cursor: pointer;
+    }
+}
+
 .notes {
     display: grid;
     justify-content: center;
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 31% 31% 31%;
     gap: 25px;
-    margin-top: 30px;
 }
 
 @media (max-width: 1024px) {
+    .notes-tools {
+        input {
+            width: 45%;
+        }
+    }
+
     .notes {
         grid-template-columns: 45% 45%;
+    }
+}
+
+@media (max-width: 768px) {
+    .notes-content {
+        padding: 5px;
+    }
+
+    .notes-tools {
+        margin-top: 20px;
+
+        input {
+            width: 60%;
+        }
     }
 }
 
 @media (max-width: 630px) {
     .notes {
         grid-template-columns: 90%;
+    }
+}
+
+@media (max-width: 425px) {
+    .notes-content {
+        padding: 0px;
+    }
+
+    .notes-tools {
+        input {
+            width: 75%;
+        }
     }
 }
