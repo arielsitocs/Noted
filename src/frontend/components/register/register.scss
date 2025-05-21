@@ -1,4 +1,4 @@
-.login-modal {
+.register-modal {
     position: absolute;
     margin-top: 70px;
     right: 0;
@@ -57,15 +57,29 @@
                 background-color: var(--light-gray);
             }
 
-            #username {
-                background-image: url('src/frontend/assets/user-icon.svg');
+            #register-username {
+                background-image: url('../../assets/user-icon.svg');
                 background-repeat: no-repeat;
                 background-position: 5px;
                 background-size: 32px;
             }
 
-            #password {
-                background-image: url('src/frontend/assets/login-password-icon.svg');
+            #register-email {
+                background-image: url('../../assets/mail-icon.svg');
+                background-repeat: no-repeat;
+                background-position: 5px;
+                background-size: 32px;
+            }
+
+            #register-password {
+                background-image: url('../../assets/login-password-icon.svg');
+                background-repeat: no-repeat;
+                background-position: 5px;
+                background-size: 32px;
+            }
+
+            #register-password-confirm {
+                background-image: url('../../assets/register-password-icon.svg');
                 background-repeat: no-repeat;
                 background-position: 5px;
                 background-size: 32px;
@@ -93,7 +107,6 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            margin-top: 15px;
 
             button {
                 padding: 8px 40px 8px 40px;
