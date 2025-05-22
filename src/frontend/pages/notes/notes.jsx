@@ -1,6 +1,9 @@
+import { useState } from 'react';
+
 import './notes.css';
 
 import Note from '../../components/note/note.jsx';
+import CreateNote from '../../components/create-note/create-note.jsx';
 
 import AddIcon from '../../assets/add-icon.svg';
 
@@ -34,22 +37,29 @@ function Notes() {
     }
   ]
 
+  const [isCreateNoteOpen, setIsCreateNoteOpen] = useState(false);
+
   return (
-    <div className="notes-content">
-      <div className="notes-tools ">
-        <input type="text" placeholder='Buscar por tìtulo...' />
-        <button><img src={AddIcon} alt="add-icon" /></button>
+    <>
+      <div className="notes-content">
+        <div className="notes-tools ">
+          <input type="text" placeholder='Buscar por tìtulo...' />
+          <button onClick={() => setIsCreateNoteOpen(true)}><img src={AddIcon} alt="add-icon"/></button>
+        </div>
+        <div className="notes">
+          {
+            notes.map(note => {
+              return (
+                <Note title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} />
+              )
+            })
+          }
+        </div>
       </div>
-      <div className="notes">
-        {
-          notes.map(note => {
-            return (
-              <Note title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} />
-            )
-          })
-        }
+      <div className={isCreateNoteOpen ? 'create-note-container' : 'create-note-container-disabled'}>
+        <CreateNote status={isCreateNoteOpen} setStatus={setIsCreateNoteOpen} />
       </div>
-    </div>
+    </>
   )
 }
 
