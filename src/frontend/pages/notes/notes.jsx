@@ -14,7 +14,7 @@ function Notes() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/notes', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/notes`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' }
         });
@@ -48,7 +48,7 @@ function Notes() {
       const note = notes.find((note) => note._id === id);
 
       if(note) {
-        const addToCompletedNotesResponse = await fetch('http://localhost:3000/completedNotes' , { 
+        const addToCompletedNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes` , { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -61,7 +61,7 @@ function Notes() {
         })
 
         if(addToCompletedNotesResponse) {
-          const deleteFromNotesResponse = await fetch(`http://localhost:3000/notes/${note._id}`, {
+          const deleteFromNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/notes/${note._id}`, {
             method: 'DELETE'
           })
 
