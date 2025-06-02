@@ -1,15 +1,22 @@
 import { useState, useEffect } from 'react';
 
-import './create-note.scss'
+import './update-note.scss'
 
 import Color from './color/color';
 
-function CreateNote({ status, setStatus }) {
+function UpdateNote({ status, setStatus, note }) {
 
-    const [noteColor, setNoteColor] = useState('#ffffff');
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [userId, setUserId] = useState('30bbbf28attrl');
+    const [updateTitle, setTitle] = useState('');
+    const [updateDescription, setDescription] = useState('');
+    const [updateNoteColor, setNoteColor] = useState('');
+    const [updateUserId, setUserId] = useState('');
+
+    useEffect(() => {
+        setTitle(note.title);
+        setDescription(note.description);
+        setNoteColor(note.color);
+        setUserId(note.userId);
+    }, [note]);
 
     // Lista de colores definidos para las notas //
     const colors = [
@@ -25,28 +32,27 @@ function CreateNote({ status, setStatus }) {
         { id: 10, name: 'blue', hex: '#1100FF' }
     ];
 
-    const handleCreateNote = async (e) => {
+
+    const handleUpdateNote = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:3000/notes', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3000/notes/${note._id}`, {
+                method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title: title,
-                    description: description,
-                    color: noteColor,
-                    userId: userId
+                body: JSON.stringify ({
+                    title: updateTitle,
+                    description: updateDescription,
+                    color: updateNoteColor,
+                    userId: updateUserId
                 })
-            });
+          })
 
-            if (response) {
-                const data = response.json();
-                console.log(data);
-                window.location.reload();
-            }
+          if(response) {
+            window.location.reload();
+          }
         } catch (error) {
-            console.error('Error al crear la nota: ', error);
+            console.error('Error al actualizar la nota: ', error);
         }
     }
 
@@ -64,7 +70,7 @@ function CreateNote({ status, setStatus }) {
 
     if (status)
         return (
-            <form className="create-note-modal" style={{ backgroundColor: noteColor }} onSubmit={handleCreateNote}>
+            <form className="update-note-modal" style={{ backgroundColor: updateNoteColor }} onSubmit={handleUpdateNote}>
                 <div className="top-row">
                     <h1>Color de la Nota</h1>
                     <div className="color-list">
@@ -80,19 +86,19 @@ function CreateNote({ status, setStatus }) {
                 <div className="middle-row">
                     <div className="note-title">
                         <h1>Título</h1>
-                        <input type="text" placeholder='Ej: Alimenar a Renato' onChange={(e) => setTitle(e.target.value)} />
+                        <input required type="text" onChange={(e) => setTitle(e.target.value)} value={updateTitle} />
                     </div>
                     <div className="note-description">
                         <h1>Descripción (opcional)</h1>
-                        <textarea type="text" id='description' placeholder='Ej: No alimentar con pedigree, la ultima vez se intoxicó!' onChange={(e) => setDescription(e.target.value)} />
+                        <textarea required type="text" id='description' onChange={(e) => setDescription(e.target.value)} value={updateDescription} />
                     </div>
                 </div>
                 <div className="bottom-row">
-                    <button id='create-note' type='submit'>CREAR</button>
+                    <button id='create-note' type='submit'>ACTUALIZAR</button>
                     <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
                 </div>
             </form>
         )
 }
 
-export default CreateNote;
+export default UpdateNote;

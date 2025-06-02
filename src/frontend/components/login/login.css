@@ -58,14 +58,14 @@
             }
 
             #username {
-                background-image: url('src/frontend/assets/user-icon.svg');
+                background-image: url('../../assets/user-icon.svg');
                 background-repeat: no-repeat;
                 background-position: 5px;
                 background-size: 32px;
             }
 
             #password {
-                background-image: url('src/frontend/assets/login-password-icon.svg');
+                background-image: url('../../assets/login-password-icon.svg');
                 background-repeat: no-repeat;
                 background-position: 5px;
                 background-size: 32px;

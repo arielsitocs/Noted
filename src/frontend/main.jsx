@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import './index.css'
 
-import App from './App.jsx';
 import NavBar from './components/nav-bar/nav-bar.jsx';
 import Notes from './pages/notes/notes.jsx';
 import Featured from './pages/featured/featured.jsx';
@@ -15,7 +14,8 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<NavBar />}>
-          <Route path="notes" element={<Notes />} />
+          <Route index element={<Notes />} />
+          <Route path='notes' element={<Notes />} />
           <Route path="featured" element={<Featured />} />
           <Route path="trash" element={<Trash />} />
         </Route>

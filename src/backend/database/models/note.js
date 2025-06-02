@@ -1,6 +1,9 @@
 import mongoose from 'mongoose';
+import moment from 'moment';
 
-const note = new mongoose.Schema({
+// Esquema de nota base //
+
+const noteFields = {
     title: {
         type: String,
         required: true
@@ -11,8 +14,7 @@ const note = new mongoose.Schema({
     },
     createdAt: {
         type: String,
-        default: new Date(),
-        required: true
+        default: () => moment().format('DD-MM-YYYY'),
     },
     color: {
         type: String,
@@ -21,8 +23,28 @@ const note = new mongoose.Schema({
         type: String,
         required: true
     },
+}
+
+// Nota base usando los campos base de nota //
+
+const noteSchema = new mongoose.Schema(noteFields);
+
+export const Note = mongoose.model('Note', noteSchema);
+
+// Esquema de nota completada heredada de nota base, modificando del atributo createdAt //
+
+const completedNoteSchema = new mongoose.Schema({
+    ...noteFields,
+    createdAt: {
+        type: String,
+        required: true
+    },
+    completedAt: {
+        type: String,
+        default: () => moment().format('DD-MM-YYYY'),
+        required: true
+    }
 })
 
-const Note = mongoose.model('Note', note);
+export const CompletedNote = mongoose.model('CompletedNote', completedNoteSchema);
 
-export default Note;

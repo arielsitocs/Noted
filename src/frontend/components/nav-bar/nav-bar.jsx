@@ -45,7 +45,7 @@ function NavBar() {
                 <div className="nav-bar-top">
                     <div className="top-left">
                         <img className={menuIconOpen ? 'menu-icon' : 'menu-icon-closed'} src={MenuIcon} alt="-" onClick={() => handleMenuOpen()} />
-                        <div className="title" onClick={() => navigate('/notes')}>
+                        <div className="title" onClick={() => navigate('/')}>
                             <h1>N</h1><h2>oted</h2>
                         </div>
                     </div>
