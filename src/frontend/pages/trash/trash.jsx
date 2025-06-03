@@ -15,7 +15,7 @@ function Trash() {
     useEffect(() => {
         const fetchCompletedNotes = async () => {
             try {
-                const response = await fetch('http://localhost:3000/completedNotes', {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -35,7 +35,7 @@ function Trash() {
             const note = completedNotes.find((note) => note._id === id);
 
             if (note) {
-                const addToNotesResponse = await fetch('http://localhost:3000/notes', {
+                const addToNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/notes`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -48,7 +48,7 @@ function Trash() {
                 })
 
                 if (addToNotesResponse) {
-                    const deleteFromCompletedNotesResponse = await fetch(`http://localhost:3000/completedNotes/${note._id}`, {
+                    const deleteFromCompletedNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes/${note._id}`, {
                         method: 'DELETE'
                     })
 
@@ -66,7 +66,7 @@ function Trash() {
 
     const handleDeleteNote = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3000/completedNotes/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes/${id}`, {
                 method: 'DELETE'
             })
 
