@@ -14,7 +14,7 @@ const noteFields = {
     },
     createdAt: {
         type: String,
-        default: () => moment().utcOffset('-04:00').format('DD-MM-YYYY'),
+        default: () => moment().local().format('DD-MM-YYYY'),
     },
     color: {
         type: String,
@@ -41,7 +41,7 @@ const completedNoteSchema = new mongoose.Schema({
     },
     completedAt: {
         type: String,
-        default: () => moment().utcOffset('-04:00').format('DD-MM-YYYY'),
+        default: () => moment().local().format('DD-MM-YYYY'),
         required: true
     }
 })
