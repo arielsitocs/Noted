@@ -37,7 +37,7 @@ function UpdateNote({ status, setStatus, note }) {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/${note._id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/notes/${note._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify ({
