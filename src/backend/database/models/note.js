@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 // Esquema de nota base //
 
@@ -14,7 +14,7 @@ const noteFields = {
     },
     createdAt: {
         type: String,
-        default: () => moment().local().format('DD-MM-YYYY'),
+        default: () => moment().tz('America/Santiago').format('DD-MM-YYYY'),
     },
     color: {
         type: String,
@@ -41,7 +41,7 @@ const completedNoteSchema = new mongoose.Schema({
     },
     completedAt: {
         type: String,
-        default: () => moment().local().format('DD-MM-YYYY'),
+        default: () => moment().tz('America/Santiago').format('DD-MM-YYYY'),
         required: true
     }
 })
