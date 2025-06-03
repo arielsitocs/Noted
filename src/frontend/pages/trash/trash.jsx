@@ -15,7 +15,7 @@ function Trash() {
     useEffect(() => {
         const fetchCompletedNotes = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}`, {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes`, {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' }
                 });
@@ -30,6 +30,8 @@ function Trash() {
         fetchCompletedNotes();
     }, [])
 
+
+    // Funcion que restuara la nota encontrada a la tabla de notas base y elimina esta misma de la tabla de notas completadas //
     const handleRestoreNote = async (id) => {
         try {
             const note = completedNotes.find((note) => note._id === id);
