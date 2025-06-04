@@ -5,6 +5,28 @@
     padding: 20px;
 }
 
+.no-notes {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin: auto;
+    margin-top: 300px;
+    background-color: var(--light-gray);
+    padding: 20px;
+    border-radius: 10px;
+
+    img {
+        width: 60px;
+    }
+
+    h1 {
+        font-family: 'Ubuntu';
+        font-size: 23px;
+    }
+}
+
 .notes-tools {
     display: flex;
     align-items: center;

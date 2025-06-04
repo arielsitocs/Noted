@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './create-note.scss'
 
 import Color from './color/color';
+import Loader from '../loader/loader';
 
 function CreateNote({ status, setStatus }) {
 
@@ -10,6 +11,7 @@ function CreateNote({ status, setStatus }) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [userId, setUserId] = useState('30bbbf28attrl');
+    const [isLoading, setIsLoading] = useState(false);
 
     // Lista de colores definidos para las notas //
     const colors = [
@@ -29,6 +31,7 @@ function CreateNote({ status, setStatus }) {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/notes`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -47,6 +50,8 @@ function CreateNote({ status, setStatus }) {
             }
         } catch (error) {
             console.error('Error al crear la nota: ', error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -64,34 +69,39 @@ function CreateNote({ status, setStatus }) {
 
     if (status)
         return (
-            <form className="create-note-modal" style={{ backgroundColor: noteColor }} onSubmit={handleCreateNote}>
-                <div className="top-row">
-                    <h1>Color de la Nota</h1>
-                    <div className="color-list">
-                        {
-                            colors.map((color) => {
-                                return (
-                                    <Color key={color.id} color={color.hex} handleNoteColor={() => handleNoteColor(color.id)} />
-                                )
-                            })
-                        }
+            <>
+                <form className="create-note-modal" style={{ backgroundColor: noteColor }} onSubmit={handleCreateNote}>
+                    <div className="top-row">
+                        <h1>Color de la Nota</h1>
+                        <div className="color-list">
+                            {
+                                colors.map((color) => {
+                                    return (
+                                        <Color key={color.id} color={color.hex} handleNoteColor={() => handleNoteColor(color.id)} />
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className="middle-row">
-                    <div className="note-title">
-                        <h1>Título</h1>
-                        <input type="text" placeholder='Ej: Alimenar a Renato' onChange={(e) => setTitle(e.target.value)} />
+                    <div className="middle-row">
+                        <div className="note-title">
+                            <h1>Título</h1>
+                            <input type="text" placeholder='Ej: Alimenar a Renato' onChange={(e) => setTitle(e.target.value)} />
+                        </div>
+                        <div className="note-description">
+                            <h1>Descripción (opcional)</h1>
+                            <textarea type="text" id='description' placeholder='Ej: No alimentar con pedigree, la ultima vez se intoxicó!' onChange={(e) => setDescription(e.target.value)} />
+                        </div>
                     </div>
-                    <div className="note-description">
-                        <h1>Descripción (opcional)</h1>
-                        <textarea type="text" id='description' placeholder='Ej: No alimentar con pedigree, la ultima vez se intoxicó!' onChange={(e) => setDescription(e.target.value)} />
+                    <div className="bottom-row">
+                        <button id='create-note' type='submit'>CREAR</button>
+                        <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
                     </div>
+                </form>
+                <div className="loader-container">
+                    <Loader status={isLoading} />
                 </div>
-                <div className="bottom-row">
-                    <button id='create-note' type='submit'>CREAR</button>
-                    <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
-                </div>
-            </form>
+            </>
         )
 }
 

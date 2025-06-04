@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './update-note.scss'
 
 import Color from './color/color';
+import Loader from '../loader/loader';
 
 function UpdateNote({ status, setStatus, note }) {
 
@@ -10,6 +11,7 @@ function UpdateNote({ status, setStatus, note }) {
     const [updateDescription, setDescription] = useState('');
     const [updateNoteColor, setNoteColor] = useState('');
     const [updateUserId, setUserId] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setTitle(note.title);
@@ -37,22 +39,25 @@ function UpdateNote({ status, setStatus, note }) {
         e.preventDefault();
 
         try {
+            setIsLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/notes/${note._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify ({
+                body: JSON.stringify({
                     title: updateTitle,
                     description: updateDescription,
                     color: updateNoteColor,
                     userId: updateUserId
                 })
-          })
+            })
 
-          if(response) {
-            window.location.reload();
-          }
+            if (response) {
+                window.location.reload();
+            }
         } catch (error) {
             console.error('Error al actualizar la nota: ', error);
+        } finally {
+            setIsLoading(false);
         }
     }
 
@@ -70,34 +75,39 @@ function UpdateNote({ status, setStatus, note }) {
 
     if (status)
         return (
-            <form className="update-note-modal" style={{ backgroundColor: updateNoteColor }} onSubmit={handleUpdateNote}>
-                <div className="top-row">
-                    <h1>Color de la Nota</h1>
-                    <div className="color-list">
-                        {
-                            colors.map((color) => {
-                                return (
-                                    <Color key={color.id} color={color.hex} handleNoteColor={() => handleNoteColor(color.id)} />
-                                )
-                            })
-                        }
+            <>
+                <form className="update-note-modal" style={{ backgroundColor: updateNoteColor }} onSubmit={handleUpdateNote}>
+                    <div className="top-row">
+                        <h1>Color de la Nota</h1>
+                        <div className="color-list">
+                            {
+                                colors.map((color) => {
+                                    return (
+                                        <Color key={color.id} color={color.hex} handleNoteColor={() => handleNoteColor(color.id)} />
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
-                </div>
-                <div className="middle-row">
-                    <div className="note-title">
-                        <h1>Título</h1>
-                        <input required type="text" onChange={(e) => setTitle(e.target.value)} value={updateTitle} />
+                    <div className="middle-row">
+                        <div className="note-title">
+                            <h1>Título</h1>
+                            <input required type="text" onChange={(e) => setTitle(e.target.value)} value={updateTitle} />
+                        </div>
+                        <div className="note-description">
+                            <h1>Descripción (opcional)</h1>
+                            <textarea required type="text" id='description' onChange={(e) => setDescription(e.target.value)} value={updateDescription} />
+                        </div>
                     </div>
-                    <div className="note-description">
-                        <h1>Descripción (opcional)</h1>
-                        <textarea required type="text" id='description' onChange={(e) => setDescription(e.target.value)} value={updateDescription} />
+                    <div className="bottom-row">
+                        <button id='create-note' type='submit'>ACTUALIZAR</button>
+                        <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
                     </div>
+                </form>
+                <div className="loader-container">
+                    <Loader status={isLoading} />
                 </div>
-                <div className="bottom-row">
-                    <button id='create-note' type='submit'>ACTUALIZAR</button>
-                    <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
-                </div>
-            </form>
+            </>
         )
 }
 
