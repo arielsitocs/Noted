@@ -97,21 +97,25 @@ function Notes() {
           <input type="text" placeholder='Buscar por tìtulo...' />
           <button onClick={() => setIsCreateNoteOpen(true)}><img src={AddIcon} alt="add-icon" /></button>
         </div>
-        {notes.length != 0 ?
-          <div className="notes">
-            {
-              notes.map(note => {
-                return (
-                  <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
-                )
-              })
-            }
+        {isLoading ?
+          <div className="loader-container">
+            <Loader status={isLoading} />
           </div>
-          :
-          <div className="no-notes">
-            <img src={SadFace} alt="sad-icon" />
-            <h1>Aún no tienes notas completadas</h1>
-          </div>
+          : notes.length != 0 ?
+            <div className="notes">
+              {
+                notes.map(note => {
+                  return (
+                    <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
+                  )
+                })
+              }
+            </div>
+            :
+            <div className="no-notes">
+              <img src={SadFace} alt="sad-icon" />
+              <h1>Aún no tienes notas creadas</h1>
+            </div>
         }
       </div>
       <div className={isCreateNoteOpen ? 'create-note-container' : 'create-note-container-disabled'}>
@@ -120,9 +124,7 @@ function Notes() {
       <div className={isUpdateNoteOpen ? 'update-note-container' : 'update-note-container-disabled'}>
         <UpdateNote status={isUpdateNoteOpen} setStatus={setIsUpdateNoteOpen} note={noteToUpdate} />
       </div>
-      <div className="loader-container">
-        <Loader status={isLoading}/>
-      </div>
+
     </>
   )
 }

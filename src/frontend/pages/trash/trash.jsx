@@ -39,6 +39,7 @@ function Trash() {
     // Funcion que restuara la nota encontrada a la tabla de notas base y elimina esta misma de la tabla de notas completadas //
     const handleRestoreNote = async (id) => {
         try {
+            setIsLoading(true);
             const note = completedNotes.find((note) => note._id === id);
 
             if (note) {
@@ -94,30 +95,32 @@ function Trash() {
     return (
         <>
             <div className="trash-content">
-                {completedNotes.length != 0 ?
-                    <>
-                        <div className='trash-title'>
-                            <h1>Notas Completadas</h1>
-                        </div>
-                        <div className="completed-notes">
-                            {
-                                completedNotes.map(completedNote => {
-                                    return (
-                                        <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleDeleteNote(completedNote._id)} />
-                                    )
-                                })
-                            }
-                        </div>
-                    </>
-                    :
-                    <div className="no-notes">
-                        <img src={SadFace} alt="sad-icon" />
-                        <h1>Aún no tienes notas completadas</h1>
+                {isLoading ? 
+                    <div className="loader-container">
+                        <Loader status={isLoading} />
                     </div>
+                    :
+                    completedNotes.length != 0 ?
+                        <>
+                            <div className='trash-title'>
+                                <h1>Notas Completadas</h1>
+                            </div>
+                            <div className="completed-notes">
+                                {
+                                    completedNotes.map(completedNote => {
+                                        return (
+                                            <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleDeleteNote(completedNote._id)} />
+                                        )
+                                    })
+                                }
+                            </div>
+                        </>
+                        :
+                        <div className="no-notes">
+                            <img src={SadFace} alt="sad-icon" />
+                            <h1>Aún no tienes notas completadas</h1>
+                        </div>
                 }
-            </div>
-            <div className="loader-container">
-                <Loader status={isLoading} />
             </div>
         </>
     );

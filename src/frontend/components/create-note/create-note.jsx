@@ -98,9 +98,6 @@ function CreateNote({ status, setStatus }) {
                         <button id='cancel-note' onClick={() => setStatus(false)}>CANCELAR</button>
                     </div>
                 </form>
-                <div className="loader-container">
-                    <Loader status={isLoading} />
-                </div>
             </>
         )
 }
