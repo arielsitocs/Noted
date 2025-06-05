@@ -6,7 +6,9 @@ import Connection from '../database/connection.js';
 // Importamos todas las rutas de notas //
 import notesRoutes from '../api/routes/noteRoutes.js';
 // Importamos todas las rutas de notas completadas //
-import completedNoteRoutes from '../api/routes/completedNotesRoutes.js'
+import completedNoteRoutes from '../api/routes/completedNotesRoutes.js';
+// Importamos todas las rutas de los usuarios //
+import userNotes from '../api/routes/userRoutes.js';
 
 // Conexion a la BD de mongoose //
 Connection();
@@ -31,6 +33,7 @@ app.get('/', (request, response) => {
 // Traemos todas las rutas de los archivos de rutas para poder usarlas //
 app.use('/notes', notesRoutes);
 app.use('/completedNotes', completedNoteRoutes);
+app.use('/users', userNotes);
 
 
 

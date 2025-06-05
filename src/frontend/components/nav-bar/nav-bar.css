@@ -23,6 +23,9 @@
                 height: 48px;
                 margin-right: 15px;
                 transition: transform 0.2s ease-in-out;
+            }
+
+            .menu-icon {
                 transform: rotate(180deg);
             }
 
@@ -33,7 +36,7 @@
             .menu-icon:hover {
                 transform: scale(1.12) rotate(180deg);
             }
-
+            
             .menu-icon-closed:hover {
                 transform: scale(1.12) rotate(0deg);
             }

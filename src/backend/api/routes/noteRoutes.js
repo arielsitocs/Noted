@@ -6,7 +6,9 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const notes = await Note.find({});
-        res.json(notes);
+        if (notes) {
+            res.json(notes);
+        }
     } catch (error) {
         res.status(500).json({ 'Error al obtener las notas en el servidor: ': error })
     }

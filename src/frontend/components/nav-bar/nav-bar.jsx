@@ -2,6 +2,7 @@ import MenuIcon from '../../assets/menu-icon.svg';
 import MyNotesIcon from '../../assets/notes-icon.svg';
 import FeaturedIcon from '../../assets/featured-icon.svg';
 import TrashIcon from '../../assets/trash-icon.svg';
+import HomeIcon from '../../assets/home-icon.svg';
 
 import Login from '../login/login.jsx';
 import Register from '../register/register.jsx';
@@ -57,6 +58,10 @@ function NavBar() {
                 <div className="side-and-content">
                     <nav className={menuOpen ? 'side-nav-bar-open' : 'side-nav-bar-closed'}>
                         <ul>
+                            <li className='side-home' onClick={() => navigate('/home')}>
+                                <img src={HomeIcon} alt="home-icon" />
+                                <a>Inicio</a>
+                            </li>
                             <li className='side-my-notes' onClick={() => navigate('/notes')}>
                                 <img src={MyNotesIcon} alt="my-notes-icon" />
                                 <a>Mis Notas</a>
