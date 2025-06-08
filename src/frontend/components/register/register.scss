@@ -3,7 +3,6 @@
     margin-top: 70px;
     right: 0;
     width: 320px;
-    min-height: 300px;
     padding: 20px;
     border-bottom-left-radius: 10px;
     box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.253);
@@ -147,5 +146,11 @@
                 margin-top: 5px;
             }
         }
+    }
+
+    .error-message {
+        font-family: 'Roboto';
+        font-size: 14px;
+        color: var(--light-red);
     }
 }

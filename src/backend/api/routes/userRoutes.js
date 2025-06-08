@@ -19,15 +19,17 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { user, email, password, createdAt } = req.body;
+        const { username, email, password, createdAt } = req.body;
+
+        console.log('Nombre de usuario serviodor: ', username)
 
         // Numero de rondas de encriptacion //
-        const salt = await bcrypt.genSalt(15);
+        const salt = await bcrypt.genSalt(10);
         // Hasheo de la contrasena //
         const hashedPassword = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            user,
+            username,
             email,
             password: hashedPassword,
             createdAt

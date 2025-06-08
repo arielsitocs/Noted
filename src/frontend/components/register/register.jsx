@@ -8,14 +8,17 @@ import Loader from '../../components/loader/loader.jsx';
 
 function Register({ status, setStatus, setLoginStatus }) {
 
-    const [user, setUser] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [loading, setLoading] = useState(false);
+    const [errorStatus, setErrorStatus] = useState(false);
+    const [error, setError] = useState('');
 
     const handleRegister = async (e) => {
         e.preventDefault();
+        console.log('Nombre de usuario: ', username)
         try {
             setLoading(true);
             if (password === passwordConfirm) {
@@ -23,7 +26,7 @@ function Register({ status, setStatus, setLoginStatus }) {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        user: user,
+                        username: username,
                         email: email,
                         password: password
                     })
@@ -35,7 +38,11 @@ function Register({ status, setStatus, setLoginStatus }) {
                     setLoginStatus(true);
                 }
             } else {
-                console.log('Las contrasenas no coinciden');
+                setError('Las contraseñas no coinciden');
+                setErrorStatus(true);
+                setTimeout(() => {
+                    setErrorStatus(false);
+                }, 3000)
             }
         } catch (error) {
             console.error('Error al registrar el usuario: ', error);
@@ -67,7 +74,7 @@ function Register({ status, setStatus, setLoginStatus }) {
                         :
                         <form onSubmit={handleRegister}>
                             <div className="username">
-                                <input type="text" placeholder='Ingresa tu nombre de Usuario...' id='register-username' onChange={(e) => setUser(e.target.value)} required />
+                                <input type="text" placeholder='Ingresa tu nombre de Usuario...' id='register-username' onChange={(e) => setUsername(e.target.value)} required />
                             </div>
                             <div className="email">
                                 <input type="email" placeholder='Ingresa tu Correo Electrònico...' id='register-email' onChange={(e) => setEmail(e.target.value)} required />
@@ -78,6 +85,9 @@ function Register({ status, setStatus, setLoginStatus }) {
                             <div className="password-confirm">
                                 <input type="password" placeholder='Confirma tu Contraseña ingresada...' id='register-password-confirm' onChange={(e) => setPasswordConfirm(e.target.value)} required />
                             </div>
+                            {errorStatus ? <div className="error-message">
+                                <h4>{error}</h4>
+                            </div> : <></>}
                             <div className="bottom-row">
                                 <button type='submit'>Unirse</button>
                                 <h3>Ya tienes una cuenta?</h3>

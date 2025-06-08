@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AuthContext } from '../../../backend/context/authContext.jsx';
 
 import './notes.css';
 
@@ -11,6 +12,8 @@ import AddIcon from '../../assets/add-icon.svg';
 import SadFace from '../../assets/sad-icon.svg';
 
 function Notes() {
+
+  const { user } = useContext(AuthContext);
 
   const [notes, setNotes] = useState([]);
   const [noteToUpdate, setNoteToUpdate] = useState({});
@@ -56,13 +59,15 @@ function Notes() {
   // Luego elimina la misma nota de la tabla de notas base //
   const handleCompleteNote = async (id) => {
     try {
-      setIsLoading(true);
       const note = notes.find((note) => note._id === id);
 
       if (note) {
         const addToCompletedNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
           body: JSON.stringify({
             title: note.title,
             description: note.description,
@@ -74,7 +79,8 @@ function Notes() {
 
         if (addToCompletedNotesResponse) {
           const deleteFromNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/notes/${note._id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
           })
 
           if (deleteFromNotesResponse) {
@@ -84,12 +90,8 @@ function Notes() {
       }
     } catch (error) {
       console.error('Error al completar la nota: ', error);
-    } finally {
-      setIsLoading(false);
     }
   }
-
-
   return (
     <>
       <div className="notes-content">
@@ -105,9 +107,15 @@ function Notes() {
             <div className="notes">
               {
                 notes.map(note => {
-                  return (
-                    <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
-                  )
+                  // Solo se muestran las notas que el usuario ha creado //
+                  if (String(note.userId) === String(user.id)) {
+                    return (
+                      <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
+                    )
+                  } else {
+                    // Si el usuario no tiene notas creadas, se vacia el array de notas para hacer feedback de que no hay notas //
+                    notes.length = 0;
+                  }
                 })
               }
             </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import CompletedNote from "../../components/completed-note/completed-note.jsx";
 import Loader from '../../components/loader/loader.jsx';
+import AlertAction from '../../components/alert-action/alert-action.jsx';
 
 import { CompletedNote as CompletedNoteModel } from "../../../backend/database/models/note.js";
 
@@ -12,7 +13,9 @@ import SadFace from '../../assets/sad-icon.svg';
 function Trash() {
 
     const [completedNotes, setCompletedNotes] = useState([]);
+    const [deleteAlertStatus, setDeleteAlertStatus] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [noteToDeleteId, setNoteToDeleteId] = useState(null);
 
     useEffect(() => {
         const fetchCompletedNotes = async () => {
@@ -45,7 +48,10 @@ function Trash() {
             if (note) {
                 const addToNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/notes`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
                     body: JSON.stringify({
                         title: note.title,
                         description: note.description,
@@ -57,7 +63,8 @@ function Trash() {
 
                 if (addToNotesResponse) {
                     const deleteFromCompletedNotesResponse = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes/${note._id}`, {
-                        method: 'DELETE'
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                     })
 
                     if (deleteFromCompletedNotesResponse) {
@@ -74,28 +81,35 @@ function Trash() {
         }
     }
 
-    const handleDeleteNote = async (id) => {
-        try {
-            setIsLoading(true);
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes/${id}`, {
-                method: 'DELETE'
-            })
+    // Funcion que establece el id de la nota a eliminar, y abre el alert de confirmacion //
+    const handleAskDeleteNote = (id) => {
+        setNoteToDeleteId(id);
+        setDeleteAlertStatus(true);
+    };
 
-            if (response) {
+    // Si el usuario confirma la eliminacion, se ejecuta el handleDeleteNote, que elimina la nota de forma permanente //
+    const handleDeleteNote = async () => {
+        setDeleteAlertStatus(false);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/completedNotes/${noteToDeleteId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            if (response.ok) {
                 console.log('Nota eliminada permanentemente');
                 window.location.reload();
             }
         } catch (error) {
             console.error('Error al eliminar la nota permanentemente: ', error);
         } finally {
-            setIsLoading(false);
+            setNoteToDeleteId(null);
         }
-    }
+    };
 
     return (
         <>
             <div className="trash-content">
-                {isLoading ? 
+                {isLoading ?
                     <div className="loader-container">
                         <Loader status={isLoading} />
                     </div>
@@ -109,7 +123,7 @@ function Trash() {
                                 {
                                     completedNotes.map(completedNote => {
                                         return (
-                                            <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleDeleteNote(completedNote._id)} />
+                                            <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleAskDeleteNote(completedNote._id)} />
                                         )
                                     })
                                 }
@@ -122,6 +136,7 @@ function Trash() {
                         </div>
                 }
             </div>
+            <AlertAction status={deleteAlertStatus} setStatus={setDeleteAlertStatus} message={'¿Quieres borrar la nota?'} action={handleDeleteNote} />
         </>
     );
 }

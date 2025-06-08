@@ -39,10 +39,12 @@ function UpdateNote({ status, setStatus, note }) {
         e.preventDefault();
 
         try {
-            setIsLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/notes/${note._id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify({
                     title: updateTitle,
                     description: updateDescription,
@@ -56,8 +58,6 @@ function UpdateNote({ status, setStatus, note }) {
             }
         } catch (error) {
             console.error('Error al actualizar la nota: ', error);
-        } finally {
-            setIsLoading(false);
         }
     }
 

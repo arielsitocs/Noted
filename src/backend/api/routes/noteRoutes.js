@@ -1,7 +1,11 @@
 import express from 'express';
+import authMiddleware from '../../middlewares/authMiddleware.js';
+import dotenv from 'dotenv';
 import { Note } from '../../database/models/note.js';
 
 const router = express.Router();
+
+dotenv.config();
 
 router.get('/', async (req, res) => {
     try {
@@ -10,20 +14,20 @@ router.get('/', async (req, res) => {
             res.json(notes);
         }
     } catch (error) {
-        res.status(500).json({ 'Error al obtener las notas en el servidor: ': error })
+        return res.status(500).json({ 'Error al obtener las notas en el servidor: ': error })
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     try {
-        const { title, description, createdAt, color, userId } = req.body;
-
+        const { title, description, createdAt, color } = req.body;
+        
         const newNote = new Note({
             title,
             description,
             createdAt,
             color,
-            userId
+            userId: req.user.id
         });
 
         await Note.insertOne(newNote);
@@ -31,11 +35,11 @@ router.post('/', async (req, res) => {
         res.status(201).json({ 'Nota creada': newNote });
     } catch (error) {
         console.error('Error al crear la nota en el servidor: ', error);
-        res.status(500).json({ 'Error': error })
+        return res.status(500).json({ 'Error': error })
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const noteId = req.params.id;
 
@@ -47,16 +51,16 @@ router.delete('/:id', async (req, res) => {
         });
     } catch (error) {
         console.error('Error al borrar la nota en el servidor: ', error);
-        res.status(500).json({
+        return res.status(500).json({
             message: 'Error en el servidor al eliminar la nota',
             error: error
         })
     }
 })
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, async (req, res) => {
     try {
-        const { title, description, createdAt, color, userId } = req.body;
+        const { title, description, createdAt, color } = req.body;
         const noteId = req.params.id;
 
         const updatedNote = {
@@ -64,7 +68,7 @@ router.put('/:id', async (req, res) => {
             description,
             createdAt,
             color,
-            userId
+            userId: req.user.id
         };
 
         await Note.findByIdAndUpdate(noteId, updatedNote, { new: true });
@@ -76,7 +80,7 @@ router.put('/:id', async (req, res) => {
 
     } catch (error) {
         console.error('Error en el servidor al eliminar la nota: ', error);
-        res.status(500).json({
+        return res.status(500).json({
             messsage: 'Error en el servidor al eliminar la nota',
             error: error
         })

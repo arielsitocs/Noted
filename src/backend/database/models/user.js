@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import moment from "moment-timezone";
 
 const userSchema = new mongoose.Schema({
-    user: {
+    username: {
         type: String,
         required: true,
         unique: true

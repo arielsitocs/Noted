@@ -9,9 +9,12 @@
 :root {
   --main-color: #9369DB;
   --light-gray: #f0f0f05e;
+  --medium-gray: #ffffffe3;
   --gray: #9B9B9B;
   --blue-link: #1259FF;
+  --green: #009929de;
   --light-green: #0099298c;
+  --red: #f82a2a;
   --light-red: #FF3636;
   --light-orange: #f2a557d7;
 }

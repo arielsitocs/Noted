@@ -36,7 +36,7 @@
             .menu-icon:hover {
                 transform: scale(1.12) rotate(180deg);
             }
-            
+
             .menu-icon-closed:hover {
                 transform: scale(1.12) rotate(0deg);
             }
@@ -67,23 +67,50 @@
             margin-right: 15px;
             gap: 15px;
 
-            button {
-                font-family: "Tilt Warp", sans-serif;
-                font-size: 15px;
-                min-width: 100px;
-                padding: 6px;
-                border: none;
-                color: white;
-                background-color: var(--main-color);
-                transition: transform 0.1s ease-in-out, border-radius 0.1s ease-in-out, opacity 0.1s ease-in-out;
+            .user-auth-buttons {
+                display: flex;
+                gap: 10px;
+
+                button {
+                    font-family: "Tilt Warp", sans-serif;
+                    font-size: 15px;
+                    min-width: 100px;
+                    padding: 6px;
+                    border: none;
+                    color: white;
+                    background-color: var(--main-color);
+                    transition: transform 0.1s ease-in-out, border-radius 0.1s ease-in-out, opacity 0.1s ease-in-out;
+                }
+
+                button:hover {
+                    transform: scale(1.14);
+                    border-radius: 3px;
+                    opacity: 0.8;
+                    cursor: pointer;
+                }
             }
 
-            button:hover {
-                transform: scale(1.14);
-                border-radius: 3px;
-                opacity: 0.8;
-                cursor: pointer;
+            .user-info {
+                display: flex;
+                align-items: center;
+                font-family: 'Ubuntu', sans-serif;
+                font-size: 8px;
+
+                img {
+                    width: 32px;
+                    height: 32px;
+                    margin-left: 10px;
+                    border-radius: 100px;
+                    transition: transform 0.2s ease-in-out;
+                }
+
+                img:hover {
+                    cursor: pointer;
+                    transform: scale(1.25);
+                }
             }
+
+
         }
     }
 

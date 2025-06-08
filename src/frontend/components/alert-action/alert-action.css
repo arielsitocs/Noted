@@ -1,0 +1,53 @@
+.alert-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    margin-top: 80px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--medium-gray);
+
+    img {
+        width: 64px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+
+        button {
+            gap: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            min-width: 100px;
+            border: none;
+        }
+
+        button:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        #ok-button {
+            background-color: var(--green);
+            color: white;
+        }
+
+        #cancel-button {
+            background-color: var(--red);
+            color: white;
+        }
+    }
+}

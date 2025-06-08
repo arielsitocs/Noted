@@ -1,5 +1,6 @@
 import express from 'express';
 import { CompletedNote } from '../../database/models/note.js';
+import authMiddleware from '../../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     try {
         const { title, description, createdAt, color, userId } = req.body;
 
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
             description,
             createdAt,
             color,
-            userId
+            userId: req.user.id
         });
 
         await CompletedNote.insertOne(newNote);
@@ -37,7 +38,7 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const noteId = req.params.id;
 

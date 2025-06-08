@@ -31,10 +31,12 @@ function CreateNote({ status, setStatus }) {
         e.preventDefault();
 
         try {
-            setIsLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/notes`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
                 body: JSON.stringify({
                     title: title,
                     description: description,
@@ -50,8 +52,6 @@ function CreateNote({ status, setStatus }) {
             }
         } catch (error) {
             console.error('Error al crear la nota: ', error);
-        } finally {
-            setIsLoading(false);
         }
     }
 

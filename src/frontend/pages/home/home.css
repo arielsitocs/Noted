@@ -1,3 +1,128 @@
+.home-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--light-gray);
+    background-image: url('/src/frontend/assets/home-bg.jpg');
+    background-size: cover;
+}
+
 .home-content {
-    padding: 20px;
+    background-color: var(--medium-gray);
+    border: 5px solid var(--main-color);
+    border-radius: 15px;
+    padding: 40px;
+}
+
+.home-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.home-logo-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.home-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.home-n {
+    color: var(--main-color);
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.home-slogan {
+    color: var(--main-color);
+    margin: 16px 0 8px 0;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+}
+
+.home-desc {
+    color: #222;
+    margin-bottom: 24px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1em;
+}
+
+.home-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.home-btn {
+    background: #fff;
+    color: var(--main-color);
+    border: 2px solid var();
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.08);
+}
+
+.home-btn-main {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.home-btn-main:hover {
+    background-color: white !important;
+    color: var(--main-color) !important;
+}
+
+.home-btn:hover {
+    background: var(--main-color);
+    color: #fff;
+}
+
+.home-cards {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.home-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 220px;
+    max-width: 260px;
+    background: #fafafa;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 24px 18px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
+    font-weight: 500;
+
+}
+
+.home-card-purple {
+    border-top: 5px solid #7c3aed;
+}
+
+.home-card-orange {
+    border-top: 5px solid #ff9800;
+}
+
+.home-card-red {
+    border-top: 5px solid #f44336;
 }

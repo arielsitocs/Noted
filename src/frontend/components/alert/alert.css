@@ -1,0 +1,35 @@
+.alert {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 80px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: var(--medium-gray);
+    animation: pop-up 0.5s ease-in-out;
+    animation-fill-mode: forwards;
+
+    img {
+        width: 64px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        font-family: 'Ubuntu';
+        font-size: 18px;
+    }
+}
+
+@keyframes pop-up {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
