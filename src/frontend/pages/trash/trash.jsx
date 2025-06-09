@@ -1,16 +1,17 @@
 import './trash.css';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import CompletedNote from "../../components/completed-note/completed-note.jsx";
 import Loader from '../../components/loader/loader.jsx';
 import AlertAction from '../../components/alert-action/alert-action.jsx';
-
-import { CompletedNote as CompletedNoteModel } from "../../../backend/database/models/note.js";
+import { AuthContext } from '../../../backend/context/authContext.jsx';
 
 import SadFace from '../../assets/sad-icon.svg';
 
 function Trash() {
+
+    const { user } = useContext(AuthContext)
 
     const [completedNotes, setCompletedNotes] = useState([]);
     const [deleteAlertStatus, setDeleteAlertStatus] = useState(false);
@@ -122,9 +123,12 @@ function Trash() {
                             <div className="completed-notes">
                                 {
                                     completedNotes.map(completedNote => {
-                                        return (
-                                            <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleAskDeleteNote(completedNote._id)} />
-                                        )
+                                        // Solo muestra las notas completadas por el usuario logueado //
+                                        if (String(completedNote.id) === String(user.id)) {
+                                            return (
+                                                <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleAskDeleteNote(completedNote._id)} />
+                                            )
+                                        }
                                     })
                                 }
                             </div>

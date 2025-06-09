@@ -9,6 +9,7 @@ import LogOutIcon from '../../assets/logout-icon.svg';
 import Login from '../login/login.jsx';
 import Register from '../register/register.jsx';
 import AlertAction from '../alert-action/alert-action.jsx';
+import Footer from '../footer/footer.jsx';
 
 import './nav-bar.css';
 
@@ -108,6 +109,7 @@ function NavBar() {
                     </main>
                     <AlertAction status={logOutAlertStatus} setStatus={setLogOutAlertStatus} message={'¿Estás seguro de cerrar sesión?'} action={logout} />
                 </div>
+                <Footer />
             </div >
         </>
     )

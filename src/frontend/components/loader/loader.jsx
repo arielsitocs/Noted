@@ -1,10 +1,10 @@
 import './loader.css';
 
-function Loader({ status }) {
+function Loader({ status, width, height }) {
     if (status)
         return (
             <div className="loader">
-                <div className="spinner"></div>
+                <div className="spinner" style={{width: width, height: height}}></div>
             </div>
         )
 }

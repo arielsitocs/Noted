@@ -67,34 +67,35 @@ function Register({ status, setStatus, setLoginStatus }) {
                     <h1>Registro de Usuario</h1>
                 </div>
                 <div className="middle-row">
-                    {loading ?
-                        <div className="loader">
-                            <Loader status={loading} />
+
+                    <form onSubmit={handleRegister}>
+                        <div className="username">
+                            <input type="text" placeholder='Ingresa tu nombre de Usuario...' id='register-username' onChange={(e) => setUsername(e.target.value)} required />
                         </div>
-                        :
-                        <form onSubmit={handleRegister}>
-                            <div className="username">
-                                <input type="text" placeholder='Ingresa tu nombre de Usuario...' id='register-username' onChange={(e) => setUsername(e.target.value)} required />
-                            </div>
-                            <div className="email">
-                                <input type="email" placeholder='Ingresa tu Correo Electrònico...' id='register-email' onChange={(e) => setEmail(e.target.value)} required />
-                            </div>
-                            <div className="password" >
-                                <input type="password" placeholder='Ingresa tu Contraseña...' id='register-password' onChange={(e) => setPassword(e.target.value)} required />
-                            </div>
-                            <div className="password-confirm">
-                                <input type="password" placeholder='Confirma tu Contraseña ingresada...' id='register-password-confirm' onChange={(e) => setPasswordConfirm(e.target.value)} required />
-                            </div>
-                            {errorStatus ? <div className="error-message">
-                                <h4>{error}</h4>
-                            </div> : <></>}
-                            <div className="bottom-row">
+                        <div className="email">
+                            <input type="email" placeholder='Ingresa tu Correo Electrònico...' id='register-email' onChange={(e) => setEmail(e.target.value)} required />
+                        </div>
+                        <div className="password" >
+                            <input type="password" placeholder='Ingresa tu Contraseña...' id='register-password' onChange={(e) => setPassword(e.target.value)} required />
+                        </div>
+                        <div className="password-confirm">
+                            <input type="password" placeholder='Confirma tu Contraseña ingresada...' id='register-password-confirm' onChange={(e) => setPasswordConfirm(e.target.value)} required />
+                        </div>
+                        {errorStatus ? <div className="error-message">
+                            <h4>{error}</h4>
+                        </div> : <></>}
+                        <div className="bottom-row">
+                            {loading ?
+                                <div className="loader-container">
+                                    <Loader status={loading} width={'28px'} height={'28px'} />
+                                </div>
+                                :
                                 <button type='submit'>Unirse</button>
-                                <h3>Ya tienes una cuenta?</h3>
-                                <a onClick={() => checkLoginStatus()}>Ingresa aquí</a>
-                            </div>
-                        </form>
-                    }
+                            }
+                            <h3>Ya tienes una cuenta?</h3>
+                            <a onClick={() => checkLoginStatus()}>Ingresa aquí</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         )

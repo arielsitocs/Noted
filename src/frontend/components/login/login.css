@@ -144,6 +144,11 @@
                 font-weight: 600;
                 margin-top: 5px;
             }
+
+            .loader-container {
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
         }
     }
 }

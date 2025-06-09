@@ -1,6 +1,7 @@
 import './login.css';
 
 import Alert from '../alert/alert.jsx';
+import Loader from '../loader/loader.jsx';
 
 import arrowIcon from '../../assets/arrow-right.svg';
 
@@ -14,12 +15,14 @@ function Login({ status, setStatus, setRegisterStatus }) {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const [errorStatus, setErrorStatus] = useState(false);
     const [error, setError] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
+            setLoading(true);
             const response = await fetch(`${import.meta.env.VITE_API_URL}/auth`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -36,19 +39,21 @@ function Login({ status, setStatus, setRegisterStatus }) {
                 setErrorStatus(true);
                 setTimeout(() => {
                     setErrorStatus(false);
-                }, 3000)
+                }, 5000)
             } else if (response.status == 401) {
                 setError('Usuario o Contraseña incorrectos');
                 setErrorStatus(true);
                 setTimeout(() => {
                     setErrorStatus(false);
-                }, 3000)
+                }, 5000)
             } else if (response.status == 200) {
                 login(data.user, data.token);
                 setStatus(false);
             }
         } catch (error) {
             console.error('Error al iniciar sesion: ', error)
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -83,7 +88,13 @@ function Login({ status, setStatus, setRegisterStatus }) {
                                 <h4>{error}</h4>
                             </div> : <></>}
                             <div className="bottom-row">
-                                <button type='submit'>Entrar</button>
+                                {loading ?
+                                    <div className="loader-container">
+                                        <Loader status={loading} width={'28px'} height={'28px'} />
+                                    </div>
+                                    :
+                                    <button type='submit'>Entrar</button>
+                                }
                                 <h3>No tienes una cuenta?</h3>
                                 <a onClick={() => checkRegisterStatus()}>Registrate aquí</a>
                             </div>

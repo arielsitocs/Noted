@@ -107,15 +107,12 @@ function Notes() {
             <div className="notes">
               {
                 notes.map(note => {
-                  // Solo se muestran las notas que el usuario ha creado //
+                  // Solo se muestran las notas que el usuario logueado ha creado //
                   if (String(note.userId) === String(user.id)) {
                     return (
                       <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
                     )
-                  } else {
-                    // Si el usuario no tiene notas creadas, se vacia el array de notas para hacer feedback de que no hay notas //
-                    notes.length = 0;
-                  }
+                  } 
                 })
               }
             </div>
