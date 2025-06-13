@@ -11,13 +11,13 @@ import { useState } from 'react';
 function Note({ id, title, description, createdAt, featured, color, findUpdateNote, handleCompleteNote }) {
 
     const [isFeatured, setIsFeatured] = useState(() => {
-        if(featured) {
+        if (featured) {
             return true
         } else {
             return false
         }
     })
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const handleFeatureNote = async (id) => {
         setLoading(true);
@@ -32,7 +32,7 @@ function Note({ id, title, description, createdAt, featured, color, findUpdateNo
             })
 
             if (response.status === 200) {
-                if(isFeatured) {
+                if (isFeatured) {
                     setIsFeatured(false);
                 } else {
                     setIsFeatured(true);
@@ -53,9 +53,9 @@ function Note({ id, title, description, createdAt, featured, color, findUpdateNo
             <div className="top-row">
                 <div className="featured">
                     {loading ?
-                        <>
+                        <div className="loader-container">
                             <Loader status={loading} width={'24px'} height={'24px'} />
-                        </>
+                        </div>
                         :
                         <>
                             {isFeatured ?
