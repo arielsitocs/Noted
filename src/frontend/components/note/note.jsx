@@ -8,7 +8,7 @@ import StarIconFilled from '../../assets/star-icon-filled.png';
 import Loader from '../loader/loader';
 import { useState } from 'react';
 
-function Note({ id, title, description, createdAt, featured, userId, color, findUpdateNote, handleCompleteNote }) {
+function Note({ id, title, description, createdAt, featured, color, findUpdateNote, handleCompleteNote }) {
 
     const [isFeatured, setIsFeatured] = useState(() => {
         if(featured) {
@@ -17,7 +17,7 @@ function Note({ id, title, description, createdAt, featured, userId, color, find
             return false
         }
     })
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const handleFeatureNote = async (id) => {
         setLoading(true);
@@ -54,7 +54,7 @@ function Note({ id, title, description, createdAt, featured, userId, color, find
                 <div className="featured">
                     {loading ?
                         <>
-                            <Loader />
+                            <Loader status={loading} width={'24px'} height={'24px'} />
                         </>
                         :
                         <>
