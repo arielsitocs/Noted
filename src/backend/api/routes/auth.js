@@ -6,15 +6,6 @@ import authMiddleware from "../../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.get('/', authMiddleware, async(req, res) => {
-    try {
-        
-    } catch (error) {
-        console.error('Error al obtener datos del usuario: ', error);
-        res.status(500).json({ 'Error al obtener datos del usuario: ': error })
-    }
-})
-
 router.post('/', async (req, res) => {
     try {
         const { username, password } = req.body;

@@ -81,8 +81,7 @@
 }
 
 .home-btn-main:hover {
-    background-color: white !important;
-    color: var(--main-color) !important;
+    opacity: 0.8;
 }
 
 .home-btn:hover {

@@ -10,7 +10,8 @@
     margin-top: 80px;
     padding: 20px;
     border-radius: 20px;
-    background-color: var(--light-main);
+    background-color: var(--light-gray);
+    box-shadow: 10px 10px 10px 0px var(--gray);
 
     img {
         width: 64px;

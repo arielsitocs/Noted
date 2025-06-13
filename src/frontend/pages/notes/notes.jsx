@@ -92,6 +92,7 @@ function Notes() {
       console.error('Error al completar la nota: ', error);
     }
   }
+
   return (
     <>
       <div className="notes-content">
@@ -110,9 +111,9 @@ function Notes() {
                   // Solo se muestran las notas que el usuario logueado ha creado //
                   if (String(note.userId) === String(user.id)) {
                     return (
-                      <Note key={note._id} id={note._id} title={note.title} description={note.description} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} />
+                      <Note key={note._id} id={note._id} title={note.title} description={note.description} featured={note.featured} createdAt={note.createdAt} userId={note.userId} color={note.color} findUpdateNote={() => findUpdateNote(note._id)} handleCompleteNote={() => handleCompleteNote(note._id)} setRegisterNoteStatus={setIsUpdateNoteOpen} handleFeatureNote={() => handleFeatureNote(note._id)} />
                     )
-                  } 
+                  }
                 })
               }
             </div>

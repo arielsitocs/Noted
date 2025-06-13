@@ -124,7 +124,7 @@ function Trash() {
                                 {
                                     completedNotes.map(completedNote => {
                                         // Solo muestra las notas completadas por el usuario logueado //
-                                        if (String(completedNote.id) === String(user.id)) {
+                                        if (String(completedNote.userId) === String(user.id)) {
                                             return (
                                                 <CompletedNote key={completedNote._id} id={completedNote._id} title={completedNote.title} description={completedNote.description} completedAt={completedNote.completedAt} userId={completedNote.userId} color={completedNote.color} handleRestoreNote={() => handleRestoreNote(completedNote._id)} handleDeleteNote={() => handleAskDeleteNote(completedNote._id)} />
                                             )

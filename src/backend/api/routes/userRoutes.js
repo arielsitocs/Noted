@@ -1,6 +1,7 @@
 import express from 'express';
 // Modulo de encriptacion de contrasenas //
 import bcrypt from 'bcryptjs';
+import authMiddleware from '../../middlewares/authMiddleware.js';
 import { User } from '../../database/models/user.js';
 
 const router = express.Router();
@@ -20,8 +21,6 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { username, email, password, createdAt } = req.body;
-
-        console.log('Nombre de usuario serviodor: ', username)
 
         // Numero de rondas de encriptacion //
         const salt = await bcrypt.genSalt(10);

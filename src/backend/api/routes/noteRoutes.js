@@ -87,4 +87,21 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
 })
 
+router.patch('/:id', async (req, res) => {
+  const id = req.params.id;
+  const { featured } = req.body;
+
+  try {
+    const updatedNote = await Note.findByIdAndUpdate(
+      id,
+      { featured: !featured },
+      { new: true }
+    );
+    res.status(200).json({ "Nota destacada: ": updatedNote});
+  } catch (error) {
+    res.status(500).json({ error: 'Error al actualizar la nota en el servidor' });
+  }
+});
+
+
 export default router;

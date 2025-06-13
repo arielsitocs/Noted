@@ -12,6 +12,10 @@ const noteFields = {
         type: String,
         required: true
     },
+    featured: {
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: String,
         default: () => moment().tz('America/Santiago').format('DD-MM-YYYY'),
